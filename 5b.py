@@ -1,18 +1,14 @@
-def display_first_n_lines(filename, n):
-  with open(filename, 'r') as file:
-    lines = file.readlines()
-    for i in range(min(n,len(lines))):
-      print(lines[i].strip())
+import re
 
-def display_word_frequency(filename, word):
-  with open(filename, 'r') as file:
-    content = file.read()
-    word_count = content.count(word)
-    print("The number of occurences are---->",word_count)
+filename = "/content/phoneandemail"
+phone_pattern = r"\+\d{12}"
+email_pattern = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
 
-filename = input("Enter the name of the File: ")
-n = int(input("Enter the number of lines to display: "))
-display_first_n_lines(filename, n)
+with open(filename, 'r') as file:
+  content = file.read()
 
-word = input("Entner the word to find its frequency: ")
-display_word_frequency(filename, word)
+phone_matches = re.findall(phone_pattern, content)
+email_matches = re.findall(email_pattern, content)
+
+print("Phone Numbers:",phone_matches)
+print("\nEmail Addresses:",email_matches)
