@@ -1,14 +1,18 @@
 import re
 
-filename = "/content/phoneandemail"
-phone_pattern = r"\+\d{12}"
-email_pattern = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
+def search_contacts(file_name):
+    with open(file_name, 'r') as file:
+        text = file.read()
 
-with open(filename, 'r') as file:
-  content = file.read()
+    phone_numbers = re.findall(r'\+\d{12}', text)
+    email_addresses = re.findall(r'\S+@\S+', text)
 
-phone_matches = re.findall(phone_pattern, content)
-email_matches = re.findall(email_pattern, content)
+    print("Phone Numbers:")
+    for number in phone_numbers:
+        print(number)
+    
+    print("\nEmail Addresses:")
+    for email in email_addresses:
+        print(email)
 
-print("Phone Numbers:",phone_matches)
-print("\nEmail Addresses:",email_matches)
+search_contacts('5b.txt')
